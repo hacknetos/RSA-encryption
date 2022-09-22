@@ -11,7 +11,7 @@ async function init() {
     console.table([[this.p, this.q]]);
     this.N= BigInt(this.p * this.q);
     this.eulN = BigInt((this.p - BigInt(1)) * (this.q - BigInt(1)));
-    this.e = await bigintCryptoUtils.prime(2048);
+    this.e = BigInt(await bigintCryptoUtils.prime(128));
     
     
 }
@@ -49,14 +49,20 @@ function generetePrKey(e,eulN) {
     
     
 }
+function publicKeyGen(e,N) {
+    
+}
+
 async function Main() {
     await init();
 
-    const privatKey = BigInt( generetePrKey(this.e, this.eulN));
+    const privatKey = BigInt(generetePrKey(this.e, this.eulN));
     const publicKey = BigInt( publicKeyGen( this.e,this.N));
+    const PublicPrivatKey = [[publicKey,this.e,this.N],[privatKey,d,p,q]]
+  
     const Message = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur ";
 
-    await console.log(`q: ${this.q} p: ${this.p}\ne: ${e}\nN: ${this.N} eulN: ${this.eulN}\nprivatKey: ${privatKey}\n`);
+    await console.log(`q: ${this.q} p: ${this.p}\ne: ${this.e}\nN: ${this.N} eulN: ${this.eulN}\nprivatKey: ${privatKey}\n`);
 
 }
 Main();
