@@ -1,0 +1,14 @@
+{
+  "name": "rsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "Hacknet.os",
+  "license": "ISC",
+  "dependencies": {
+    "bigint-crypto-utils": "^3.1.6"
+  }
+}
