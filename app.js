@@ -6,12 +6,12 @@ let p, q, N, eulN, e = BigInt(0);
 
 async function init() {
     
-    this.p = BigInt( await bigintCryptoUtils.prime(512)); //TODO Rendom Prime Zahl 128bit
-    this.q = BigInt( await bigintCryptoUtils.prime(512));//TODO Rendom Prime Zahl 128bit
+    this.p = BigInt( await bigintCryptoUtils.prime(2048)); //TODO Rendom Prime Zahl 128bit
+    this.q = BigInt( await bigintCryptoUtils.prime(2048));//TODO Rendom Prime Zahl 128bit
     console.table([[this.p, this.q]]);
     this.N= BigInt(this.p * this.q);
     this.eulN = BigInt((this.p - BigInt(1)) * (this.q - BigInt(1)));
-    this.e = await bigintCryptoUtils.prime(512);
+    this.e = await bigintCryptoUtils.prime(2048);
     
     
 }
@@ -44,7 +44,7 @@ function generetePrKey(e,eulN) {
             y        = BigInt(v);
             u        = BigInt(m);
             v        = BigInt(n);
-        }
+    }
         return BigInt(privatKey);
     
     
@@ -53,7 +53,8 @@ async function Main() {
     await init();
 
     const privatKey = BigInt( generetePrKey(this.e, this.eulN));
-    const publicKey = () => { };
+    const publicKey = BigInt( publicKeyGen( this.e,this.N));
+    const Message = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur ";
 
     await console.log(`q: ${this.q} p: ${this.p}\ne: ${e}\nN: ${this.N} eulN: ${this.eulN}\nprivatKey: ${privatKey}\n`);
 
