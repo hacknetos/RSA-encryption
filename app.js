@@ -3,7 +3,7 @@ const bigintCryptoUtils = require('bigint-crypto-utils');
 
 
 let p, q, N, eulN, e = BigInt(0);
-
+const PublicPrivatKey = [];
 async function init() {
     
     this.p = BigInt( await bigintCryptoUtils.prime(2048)); //TODO Rendom Prime Zahl 128bit
@@ -17,10 +17,7 @@ async function init() {
 }
 
 
-function gendfinish(x,y,durchleufe) {
-    console.table(durchleufe);
 
-}
 
 
 
@@ -49,23 +46,45 @@ function generetePrKey(e,eulN) {
     
     
 }
-function publicKeyGen(e,N) {
-    
-}
+
 
 async function Main() {
     await init();
 
     const privatKey = BigInt(generetePrKey(this.e, this.eulN));
-    const publicKey = BigInt( publicKeyGen( this.e,this.N));
-    const PublicPrivatKey = [[publicKey,this.e,this.N],[privatKey,d,p,q]]
+    sPublicPrivatKey = [["PublicKey", this.e, this.N], ["PrivatKey", privatKey, p, q]];
   
-    const Message = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur ";
-
     await console.log(`q: ${this.q} p: ${this.p}\ne: ${this.e}\nN: ${this.N} eulN: ${this.eulN}\nprivatKey: ${privatKey}\n`);
+    sendMessage("test");
 
 }
+
+function sendMessage(m) {
+    
+    
+    const usingObjectAssign = Object.assign([], m);
+    const Buch = [];
+    m = "";
+    usingObjectAssign.forEach(element => {
+        console.log(element);
+
+        Buch.push(BigInt(element.charCodeAt(0)));
+        console.table(Buch);
+       
+    });
+    Buch.forEach(element => {
+        
+        element = element ^ this.e % this.N;
+        m += String.fromCharCode(element);
+    });
+    console.log(m);
+    //m = m.fromCharCode(m);
+    console.log(`\n\n----------------------------------------start----------------------------------------\n${m}\n----------------------------------------End----------------------------------------`)
+}
 Main();
+
+
+
 
 
  
