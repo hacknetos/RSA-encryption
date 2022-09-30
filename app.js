@@ -1,4 +1,4 @@
-const randomPrime = require('./randome-Prime');
+var List = require("collections/list");
 const bigintCryptoUtils = require('bigint-crypto-utils');
 
 
@@ -6,9 +6,9 @@ let p, q, N, eulN, e = BigInt(0);
 const PublicPrivatKey = [];
 async function init() {
     
-    this.p = BigInt( await bigintCryptoUtils.prime(2048)); //TODO Rendom Prime Zahl 128bit
-    this.q = BigInt( await bigintCryptoUtils.prime(2048));//TODO Rendom Prime Zahl 128bit
-    console.table([[this.p, this.q]]);
+    this.p = BigInt( await bigintCryptoUtils.prime(2048)); 
+    this.q = BigInt( await bigintCryptoUtils.prime(2048));
+    console.log(`p: \n-----------------------\n${p}\nq: \n-----------------------\n${q}`);
     this.N= BigInt(this.p * this.q);
     this.eulN = BigInt((this.p - BigInt(1)) * (this.q - BigInt(1)));
     this.e = BigInt(await bigintCryptoUtils.prime(128));
@@ -51,10 +51,10 @@ function generetePrKey(e,eulN) {
 async function Main() {
     await init();
 
-    const privatKey = BigInt(generetePrKey(this.e, this.eulN));
-    sPublicPrivatKey = [["PublicKey", this.e, this.N], ["PrivatKey", privatKey, p, q]];
+    const privatKey = generetePrKey(this.e, this.eulN);
+    this.PublicPrivatKey = [["PublicKey", this.e, this.N], ["PrivatKey", privatKey, p, q]];
   
-    await console.log(`q: ${this.q} p: ${this.p}\ne: ${this.e}\nN: ${this.N} eulN: ${this.eulN}\nprivatKey: ${privatKey}\n`);
+    await console.log(`q:\n--------------------\n${this.q} p:\n--------------------\n${this.p}\ne:\n--------------------\n${this.e}\nN:\n--------------------\n${this.N} eulN:\n--------------------\n${this.eulN}\nprivatKey:\n--------------------\n${privatKey}\n`);
     sendMessage("test");
 
 }
@@ -62,10 +62,10 @@ async function Main() {
 function sendMessage(m) {
     
     
-    const usingObjectAssign = Object.assign([], m);
+    const textToArray = Object.assign([], m);
     const Buch = [];
-    m = "";
-    usingObjectAssign.forEach(element => {
+    m = new List();
+    textToArray.forEach(element => {
         console.log(element);
 
         Buch.push(BigInt(element.charCodeAt(0)));
@@ -74,10 +74,10 @@ function sendMessage(m) {
     });
     Buch.forEach(element => {
         
-        element = element ^ this.e % this.N;
-        m += String.fromCharCode(element);
+        tmp = element ^ this.e % this.N;
+        m.add(tmp);
     });
-    console.log(m);
+    console.table(m);
     //m = m.fromCharCode(m);
     console.log(`\n\n----------------------------------------start----------------------------------------\n${m}\n----------------------------------------End----------------------------------------`)
 }

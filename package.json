@@ -9,6 +9,7 @@
   "author": "Hacknet.os",
   "license": "ISC",
   "dependencies": {
-    "bigint-crypto-utils": "^3.1.6"
+    "bigint-crypto-utils": "^3.1.6",
+    "collections": "^5.1.13"
   }
 }
